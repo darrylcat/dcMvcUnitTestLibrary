@@ -6,6 +6,7 @@ using DemoBlogApp.Models.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,8 +25,14 @@ namespace DemoBlogApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextFactory<DemoBlogContext>(opt => opt.UseMemoryCache());
             services.AddControllersWithViews();
+
+            var connStr = Configuration.GetConnectionString("BlogDB");
+            services.AddDbContextFactory<DemoBlogContext>(opt =>
+                    opt.UseInMemoryDatabase(connStr)
+                    .EnableSensitiveDataLogging()
+            );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
