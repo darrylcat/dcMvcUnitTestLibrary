@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DemoBlogApp\DemoBlogApp.csproj" />
+    <ProjectReference Include="..\UnitTestHelperLibrary\UnitTestHelperLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
