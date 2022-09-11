@@ -34,7 +34,7 @@ namespace UnitTestHelperLibrary.Reflection
 
         private static string GetPropertyValue(object obj, PropertyInfo property)
         {
-            if (property == null) return null;
+            if (property.GetValue(obj) == null) return null;
             return property.GetValue(obj).ToString();
         }
     }
