@@ -34,7 +34,7 @@ namespace UnitTestHelperLibrary
                 ServiceCollection = ServiceCollectionFactory.Create();
                 AddServices();
                 InitialiseServiceProvider();
-            };
+            }
         }
 
         /*
