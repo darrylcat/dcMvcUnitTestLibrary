@@ -20,6 +20,8 @@ namespace DemoBlogApp.Models.Database
         public string LastName { get; set; }
         [MaxLength(255)]
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
         public DateTime Created { get; set; }
         public bool Active { get; set; }
     }
