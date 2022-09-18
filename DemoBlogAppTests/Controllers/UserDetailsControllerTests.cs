@@ -20,7 +20,7 @@ namespace DemoBlogApp.Controllers.Tests
             base.Setup();
             if(testObj == null)
             {
-                testObj = new UserDetailsController(dbContextFactory);
+                testObj = new UserDetailsController(UserDetailsLogger, dbContextFactory);
             }
         }
 

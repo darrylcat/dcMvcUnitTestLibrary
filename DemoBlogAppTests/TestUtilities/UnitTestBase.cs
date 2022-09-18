@@ -19,6 +19,7 @@ namespace DemoBlogAppTests.TestUtilities
         protected string CONNECTION_STRING = "Data Source= :memory:;Version=3;New=True;";
 
         protected static ILogger<HomeController> HomeLogger { get; set; }
+        protected static ILogger<UserDetailsController> UserDetailsLogger { get; set; }
         protected static IDbContextFactory<DemoBlogContext> dbContextFactory { get; set; }
 
         public override void Setup()
@@ -53,6 +54,7 @@ namespace DemoBlogAppTests.TestUtilities
         {
             var factory = ServiceProvider.GetService<ILoggerFactory>();
             HomeLogger = factory.CreateLogger<HomeController>();
+            UserDetailsLogger = factory.CreateLogger<UserDetailsController>();
         }
 
         public virtual void Cleanup()

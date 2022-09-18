@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DemoBlogApp.Models.Database;
+using Microsoft.Extensions.Logging;
 
 namespace DemoBlogApp.Controllers
 {
     public class UserDetailsController : Controller
     {
         private readonly DemoBlogContext _context;
+        private readonly ILogger<UserDetailsController> _logger;
 
-        public UserDetailsController(IDbContextFactory<DemoBlogContext> dbContextFactory)
+        public UserDetailsController(ILogger<UserDetailsController> logger, IDbContextFactory<DemoBlogContext> dbContextFactory)
         {
             _context = dbContextFactory.CreateDbContext();
         }
