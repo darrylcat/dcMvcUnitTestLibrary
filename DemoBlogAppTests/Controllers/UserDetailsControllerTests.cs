@@ -3,16 +3,37 @@ using DemoBlogApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DemoBlogAppTests.TestUtilities;
 
 namespace DemoBlogApp.Controllers.Tests
 {
     [TestClass()]
-    public class UserDetailsControllerTests
+    public class UserDetailsControllerTests : UnitTestBase
     {
+
+        private static UserDetailsController testObj { get; set; }
+
+
+        [TestInitialize()]
+        public override void Setup()
+        {
+            base.Setup();
+            if(testObj == null)
+            {
+                testObj = new UserDetailsController(dbContextFactory);
+            }
+        }
+
+        [TestCleanup()]
+        public override void Cleanup()
+        {
+            base.Cleanup();
+        }
+
         [TestMethod()]
         public void UserDetailsControllerTest()
         {
-            Assert.Fail();
+            Assert.IsInstanceOfType(testObj, typeof(UserDetailsController));
         }
 
         [TestMethod()]
