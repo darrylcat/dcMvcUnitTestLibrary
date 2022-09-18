@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DemoBlogAppTests.TestUtilities;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoBlogApp.Controllers.Tests
 {
@@ -37,9 +39,11 @@ namespace DemoBlogApp.Controllers.Tests
         }
 
         [TestMethod()]
-        public void IndexTest()
+        public async Task IndexTest()
         {
-            Assert.Fail();
+
+            var actual = await testObj.Index();
+            Assert.IsInstanceOfType(actual, typeof(ViewResult));
         }
 
         [TestMethod()]
