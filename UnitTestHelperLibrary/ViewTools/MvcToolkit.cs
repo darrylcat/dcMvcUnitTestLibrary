@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 
 namespace UnitTestHelperLibrary.ViewTools
 {
@@ -7,7 +7,7 @@ namespace UnitTestHelperLibrary.ViewTools
     {
         public static bool IsViewRecord(object actual)
         {
-            return (actual is ViewResult);
+            return (actual.GetType().Name.EndsWith("ViewResult"));
         }
     }
 }

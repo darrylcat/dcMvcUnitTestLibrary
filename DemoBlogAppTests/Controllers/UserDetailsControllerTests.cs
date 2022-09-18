@@ -7,6 +7,7 @@ using DemoBlogAppTests.TestUtilities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DemoBlogApp.Models.Database;
+using UnitTestHelperLibrary.ViewTools;
 
 namespace DemoBlogApp.Controllers.Tests
 {
@@ -44,7 +45,8 @@ namespace DemoBlogApp.Controllers.Tests
         {
 
             var actual = await testObj.Index();
-            Assert.IsInstanceOfType(actual, typeof(ViewResult));
+            bool result = MvcToolkit.IsViewRecord(actual);
+            Assert.IsTrue(result);
         }
 
         [TestMethod()]
