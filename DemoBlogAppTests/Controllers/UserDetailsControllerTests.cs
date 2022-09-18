@@ -6,6 +6,7 @@ using System.Text;
 using DemoBlogAppTests.TestUtilities;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DemoBlogApp.Models.Database;
 
 namespace DemoBlogApp.Controllers.Tests
 {
@@ -45,6 +46,24 @@ namespace DemoBlogApp.Controllers.Tests
             var actual = await testObj.Index();
             Assert.IsInstanceOfType(actual, typeof(ViewResult));
         }
+
+        [TestMethod()]
+        public async Task IndexHasUserDetailRecord()
+        {
+            var actual = (ViewResult)await testObj.Index();
+            var model = actual.ViewData.Model;
+            Assert.IsInstanceOfType(model, typeof(UserDetail));
+        }
+
+        [TestMethod()]
+        public async Task IndexHasOneUserDetailsRecord()
+        {
+            var expected = 1;
+            var actual = (ViewResult)await testObj.Index();
+            var model = (ICollection<UserDetail>)actual.ViewData.Model;
+            Assert.AreEqual(expected, model.Count);
+        }
+
 
         [TestMethod()]
         public void DetailsTest()
