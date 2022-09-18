@@ -27,6 +27,31 @@ namespace DemoBlogAppTests.TestUtilities
             base.Setup();
             InitaliseLoggers();
             InitialseDatabaseFactory();
+            InitialiseDatabaseRecords();
+        }
+
+        private void InitialiseDatabaseRecords()
+        {
+            var db = dbContextFactory.CreateDbContext();
+            InitialiseUserDetails(db);
+            db.SaveChanges();
+            db = null;
+        }
+
+        private void InitialiseUserDetails(DemoBlogContext db)
+        {
+            var user1 = new UserDetail() {
+                Active = true,
+                Created = DateTime.Now,
+                Email = "anon.mouse@example.com",
+                FirstName = "Anon",
+                LastName = "Mouse",
+                Password = "Not.A.Real.Password",
+                Salt = "qwertyuiopasdfghjklzxcvbnm123456789!@",
+                Title = "Mr"
+            };
+            db.UserDetails.Add(user1);
+            db.SaveChanges();
         }
 
         protected override void AddServices()
