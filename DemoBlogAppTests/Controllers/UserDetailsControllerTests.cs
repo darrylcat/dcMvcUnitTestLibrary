@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DemoBlogApp.Models.Database;
 using UnitTestHelperLibrary.ViewTools;
+using System.Linq;
 
 namespace DemoBlogApp.Controllers.Tests
 {
@@ -54,7 +55,7 @@ namespace DemoBlogApp.Controllers.Tests
         {
             var actual = (ViewResult)await testObj.Index();
             var model = actual.ViewData.Model;
-            Assert.IsInstanceOfType(model, typeof(UserDetail));
+            Assert.IsInstanceOfType(model, typeof(ICollection<UserDetail>));
         }
 
         [TestMethod()]
@@ -66,14 +67,33 @@ namespace DemoBlogApp.Controllers.Tests
             Assert.AreEqual(expected, model.Count);
         }
 
-
         [TestMethod()]
-        public void DetailsTest()
+        public async Task IndexFirstRecordMatches()
         {
-            Assert.Fail();
+            using (var db = dbContextFactory.CreateDbContext())
+            {
+                var expected = db.UserDetails.FirstOrDefault();
+                var actual = (ViewResult)await testObj.Index();
+                var users = (ICollection<UserDetail>)actual.ViewData.Model;
+                var userDetail = users.FirstOrDefault();
+                Assert.AreEqual(expected, userDetail);
+            }
         }
 
         [TestMethod()]
+        public async Task DetailsTest()
+        {
+            using (var db = dbContextFactory.CreateDbContext())
+            {
+                var expected = db.UserDetails.FirstOrDefault();
+                long? expectedId = expected.Id;
+                var actual = (ViewResult)await testObj.Details(expectedId);
+                var model = actual.ViewData.Model;
+                Assert.IsInstanceOfType(model, typeof(UserDetail));
+            }
+        }
+
+            [TestMethod()]
         public void CreateTest()
         {
             Assert.Fail();
